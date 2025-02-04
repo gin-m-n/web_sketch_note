@@ -10,3 +10,24 @@ html {
 body {
   height: 100%;
 }
+
+#switcher-container {
+  left: 0;
+  bottom: 0;
+  padding: 10px;
+  position: absolute;
+  background-color: rgba(120, 120, 120, 0.5);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+select,
+::picker(select) {
+  appearance: base-select;
+}
+
+#switcher {
+  margin: 0;
+}
