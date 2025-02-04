@@ -21,7 +21,6 @@ export class Spiral extends BaseCanvas {
   private readonly light: Light;
 
   private readonly points: Vector3[] = [];
-  private mat;
   private line;
 
   constructor(containerDom: Element) {
@@ -51,25 +50,25 @@ export class Spiral extends BaseCanvas {
       this.points.push(new Vector3(x, y, 0));
     }
 
-    this.mat = new LineBasicMaterial();
-    this.line = new Line(new BufferGeometry().setFromPoints([]), this.mat);
+    const mat = new LineBasicMaterial();
+    this.line = new Line(new BufferGeometry().setFromPoints([]), mat);
     this.scene.add(this.line);
 
     this.render();
   }
 
-  private flame = 0;
+  private frame = 0;
   private render() {
     requestAnimationFrame(() => this.render());
 
-    if (this.flame <= this.points.length) {
+    if (this.frame <= this.points.length) {
       this.line.geometry.dispose();
       this.line.geometry = new BufferGeometry().setFromPoints(
-        this.points.slice(0, this.flame)
+        this.points.slice(0, this.frame)
       );
     }
 
     this.renderer.render(this.scene, this.camera);
-    this.flame++;
+    this.frame++;
   }
 }

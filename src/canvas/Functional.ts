@@ -1,11 +1,8 @@
 import {
   BufferGeometry,
-  CircleGeometry,
   Light,
   Line,
   LineBasicMaterial,
-  Mesh,
-  MeshBasicMaterial,
   PerspectiveCamera,
   PointLight,
   Scene,
@@ -16,14 +13,15 @@ import { calcCameraDistance } from "../util/camera";
 import { MeshUtils } from "../util/three";
 import { BaseCanvas } from "./BaseCanvas";
 
-export class Canvas extends BaseCanvas {
-  static readonly name = "Canvas";
+export class Functional extends BaseCanvas {
+  static readonly name = "Functional";
   private readonly scene: Scene;
   private readonly camera: PerspectiveCamera;
   private readonly defaultCameraDistance: number;
   private readonly light: Light;
 
-  private readonly pointer;
+  private readonly points: Vector3[] = [];
+  private line;
 
   constructor(containerDom: Element) {
     super({
@@ -46,45 +44,34 @@ export class Canvas extends BaseCanvas {
 
     MeshUtils.genCenterLine(this.w, this.h).forEach((l) => this.scene.add(l));
 
-    const mat = new MeshBasicMaterial();
-    const geo = new CircleGeometry(20, 20);
-    this.pointer = new Mesh(geo, mat);
-    this.scene.add(this.pointer);
-
-    const f = (x: number) => (x / 50) ** 3;
-    const points: Vector3[] = [];
+    const f = (x: number) => (x / 80) ** 3 + (-x / 30) ** 2;
     for (let x = -1000; x <= 1000; x += 20) {
       const y = f(x);
-      points.push(new Vector3(x, y, 0));
+      this.points.push(new Vector3(x, y, 0));
     }
 
     const m = new LineBasicMaterial();
-    const g = new BufferGeometry().setFromPoints(points);
+    const g = new BufferGeometry().setFromPoints([]);
     const line = new Line(g, m);
     this.scene.add(line);
+    this.line = line;
 
     this.render();
   }
 
-  private past = 0;
-  private r = 600;
-  private flameCount = 0;
+  private cnt = 0;
   private render() {
     requestAnimationFrame(() => this.render());
-    this.flameCount++;
 
-    const elapsedTime = performance.now();
-    const elapsedSec = elapsedTime / 1000;
-
-    if (Math.round(elapsedSec) - this.past >= 1) {
-      this.past = Math.round(elapsedSec);
+    const idx = this.cnt / 4;
+    if (idx <= this.points.length) {
+      this.line.geometry.dispose();
+      this.line.geometry = new BufferGeometry().setFromPoints(
+        this.points.slice(0, idx)
+      );
     }
 
-    const theta = elapsedSec * 30;
-    this.pointer.position.x = Math.cos(theta) * this.r;
-    this.pointer.position.y = Math.sin(theta) * this.r;
-
-    this.r = Math.max(this.r - 0.2, 0);
+    this.cnt++;
 
     this.renderer.render(this.scene, this.camera);
   }

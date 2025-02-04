@@ -1,9 +1,9 @@
 import "./style.css";
-import { Canvas } from "./canvas/Canvas";
 import { Spiral } from "./canvas/Spiral";
+import { Functional } from "./canvas/Functional";
 
 const KEY = "canvasIdx";
-const canvasList = [Canvas, Spiral];
+const canvasList = [Functional, Spiral];
 const options = canvasList
   .map((canvas, idx) => `<option value=${idx}>${canvas.name}</option>`)
   .reduce((str, html) => str + html, "");
