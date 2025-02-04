@@ -17,6 +17,7 @@ import { MeshUtils } from "../util/three";
 import { BaseCanvas } from "./BaseCanvas";
 
 export class Canvas extends BaseCanvas {
+  static readonly name = "Canvas";
   private readonly scene: Scene;
   private readonly camera: PerspectiveCamera;
   private readonly defaultCameraDistance: number;
