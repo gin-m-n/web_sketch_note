@@ -25,11 +25,13 @@ export class Lissage extends BaseCanvas {
   private readonly cosPhaseDiff;
   private readonly sinScalarTimes;
   private readonly sinPhaseDiff;
+  private readonly thetaPerFrameInput;
 
   private cs: number = 1
   private cd: number = 0
   private ss: number = 1
   private sd: number = 0
+  private thetaPerFrame: number = 1
 
 
 
@@ -88,10 +90,21 @@ export class Lissage extends BaseCanvas {
       }
     })
 
+    this.thetaPerFrameInput = document.createElement("input")
+    this.thetaPerFrameInput.type = "number"
+    this.thetaPerFrameInput.placeholder = "theta per frame"
+    this.thetaPerFrameInput.addEventListener("change", (e) => {
+      if (e.target instanceof HTMLInputElement) {
+        this.thetaPerFrame = e.target.value === "" ? 1 : Number(e.target.value)
+        this.resetRender()
+      }
+    })
+
     inputContainer.appendChild(this.cosScalarTimes)
     inputContainer.appendChild(this.cosPhaseDiff)
     inputContainer.appendChild(this.sinScalarTimes)
     inputContainer.appendChild(this.sinPhaseDiff)
+    inputContainer.appendChild(this.thetaPerFrameInput)
     containerDom.appendChild(inputContainer)
 
 
@@ -151,7 +164,7 @@ export class Lissage extends BaseCanvas {
     // 大体、60FPSぐらいにしたい
     if (1000 / 60 > delta) {
       // skip render
-      return
+      // return
     }
 
     this.lastRenderTime = now
@@ -160,7 +173,7 @@ export class Lissage extends BaseCanvas {
     const x = this.r * Math.cos(cosTheta)
     const y = this.r * Math.sin(sinTheta)
     this.expandLine(x, y)
-    this.theta += Math.PI / 180 * 2
+    this.theta += Math.PI / 180 * this.thetaPerFrame;
 
     this.renderer.render(this.scene, this.camera);
   }
