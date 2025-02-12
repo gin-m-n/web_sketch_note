@@ -52,7 +52,7 @@ export class Lissage extends BaseCanvas {
 
     this.cosScalarTimes = document.createElement("input")
     this.cosScalarTimes.type = "number"
-    this.cosScalarTimes.placeholder = "cos: scalar times"
+    this.cosScalarTimes.placeholder = "cos: scalar times (1)"
     this.cosScalarTimes.addEventListener("change", (e) => {
       if (e.target instanceof HTMLInputElement) {
         this.cs = e.target.value === "" ? 1 : Number(e.target.value)
@@ -62,7 +62,7 @@ export class Lissage extends BaseCanvas {
 
     this.cosPhaseDiff = document.createElement("input")
     this.cosPhaseDiff.type = "number"
-    this.cosPhaseDiff.placeholder = "cos: phase diff"
+    this.cosPhaseDiff.placeholder = "cos: phase diff (0°)"
     this.cosPhaseDiff.addEventListener("change", (e) => {
       if (e.target instanceof HTMLInputElement) {
         this.cd = e.target.value === "" ? 0 : Number(e.target.value)
@@ -72,7 +72,7 @@ export class Lissage extends BaseCanvas {
 
     this.sinScalarTimes = document.createElement("input")
     this.sinScalarTimes.type = "number"
-    this.sinScalarTimes.placeholder = "sin: scalar times"
+    this.sinScalarTimes.placeholder = "sin: scalar times (1)"
     this.sinScalarTimes.addEventListener("change", (e) => {
       if (e.target instanceof HTMLInputElement) {
         this.ss = e.target.value === "" ? 1 : Number(e.target.value)
@@ -82,7 +82,7 @@ export class Lissage extends BaseCanvas {
 
     this.sinPhaseDiff = document.createElement("input")
     this.sinPhaseDiff.type = "number"
-    this.sinPhaseDiff.placeholder = "sin: phase diff"
+    this.sinPhaseDiff.placeholder = "sin: phase diff (0°)"
     this.sinPhaseDiff.addEventListener("change", (e) => {
       if (e.target instanceof HTMLInputElement) {
         this.sd = e.target.value === "" ? 0 : Number(e.target.value)
@@ -92,7 +92,7 @@ export class Lissage extends BaseCanvas {
 
     this.thetaPerFrameInput = document.createElement("input")
     this.thetaPerFrameInput.type = "number"
-    this.thetaPerFrameInput.placeholder = "theta per frame"
+    this.thetaPerFrameInput.placeholder = "theta per frame (1°)"
     this.thetaPerFrameInput.addEventListener("change", (e) => {
       if (e.target instanceof HTMLInputElement) {
         this.thetaPerFrame = e.target.value === "" ? 1 : Number(e.target.value)
