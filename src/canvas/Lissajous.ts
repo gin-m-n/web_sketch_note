@@ -13,8 +13,8 @@ import {
 import { MeshUtils } from "../util/three";
 import { BaseCanvas } from "./BaseCanvas";
 
-export class Lissage extends BaseCanvas {
-  static readonly name = "Lissage";
+export class Lissajous extends BaseCanvas {
+  static readonly name = "Lissajous";
   private readonly scene: Scene;
   private readonly camera: Camera;
   private readonly light: Light;
